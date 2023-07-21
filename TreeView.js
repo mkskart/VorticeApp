@@ -11,7 +11,7 @@ const TreeView = ({ data, selectedNode, setSelectedNode }) => {
       const processNode = (node, index) => {
         node.number = index + 1;
         node.itemStyle = {
-          color: node.name === selectedNode ? 'red' : 'lightblue',
+          color: selectedNode.includes(node.name) ? 'red' : 'lightblue',
         };
 
         if (node.children && node.children.length > 0) {
@@ -74,8 +74,12 @@ const TreeView = ({ data, selectedNode, setSelectedNode }) => {
   const handleClick = (params) => {
     const { data } = params;
     if (data.name) {
-      setClickedNode(data.name);
-      setSelectedNode(data.name);
+      const nodeName = data.name;
+      const updatedSelectedNode = selectedNode.includes(nodeName)
+        ? selectedNode.filter((name) => name !== nodeName)
+        : [...selectedNode, nodeName];
+      setClickedNode(nodeName);
+      setSelectedNode(updatedSelectedNode);
       console.log(data.name);
     }
   };

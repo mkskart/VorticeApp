@@ -5,6 +5,15 @@ const ParallelChart = ({ data, selectedNode, setSelectedNode }) => {
   const chartRef = useRef(null);
   const formattedDataArray = [];
 
+  const getNodeStyling = (name) => {
+    const selected = selectedNode.includes(name);
+    return {
+      color: selected ? "red" : "gray",
+      opacity: selected ? 1 : 0.25,
+      width: selected ? 2 : 0.5,
+    };
+  };
+
   useEffect(() => {
     const parseNode = (node) => {
       const { name, children } = node;
@@ -26,40 +35,37 @@ const ParallelChart = ({ data, selectedNode, setSelectedNode }) => {
 
       const splitArrays = [];
       const arrayLength = 19;
-      let color = "blue"
-      let opacity = 0.5
-      let width = 1
+      let {color, opacity, width } = getNodeStyling(name);
 
-      if(selectedNode !== "") {
-        if(name == selectedNode) {
-          color = "red"
-          opacity = 1
-          width = 2
-        } else {
-          color = "gray"
-          opacity = 0.25
-          width = 0.5
-        }
-      }
+      // if(selectedNode.length > 0) {
+      //   if(selectedNode.includes(name)) {
+      //     color = "red"
+      //     opacity = 1
+      //     width = 2
+      //   } else {
+      //     color = "gray"
+      //     opacity = 0.25
+      //     width = 0.5
+      //   }
+      // }
+      
       for (let i = 0; i < dataArray.length; i += arrayLength) {
         //splitArrays.push(dataArray.slice(i, i + arrayLength));
         const seriesData = {
           value: dataArray.slice(i, i + arrayLength),
           "lineStyle": {
-            "show": true,
-            "width": width,
-            "opacity": opacity,
-            "curveness": 0,
-            "type": "solid",
-            "color": color
+            show: true,
+            width,
+            opacity,
+            curveness: 0,
+            type: "solid",
+            color
         }
         };
         splitArrays.push(seriesData);
       }
       
       formattedDataArray.push(...splitArrays);
-
-      
     };
 
     if (data && data.children && data.children.length > 0) {

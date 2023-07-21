@@ -8,7 +8,7 @@ import './App.css';
 const App = () => {
   const [data1, setData1] = useState(null);
   const [data2, setData2] = useState(null);
-  const [selectedNode, setSelectedNode] = useState("");
+  const [selectedNode, setSelectedNode] = useState([]);
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
