@@ -104,7 +104,6 @@ const ParallelChart = ({ data, selectedNode, setSelectedNode }) => {
     };
 
     chart.setOption(option);
-    console.log(formattedDataArray)
     return () => {
       chart.dispose();
     };

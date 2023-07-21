@@ -5,6 +5,7 @@ const TreeView = ({ data, selectedNode, setSelectedNode }) => {
   const [loading, setLoading] = useState(true);
   const [option, setOption] = useState(null);
   const [clickedNode, setClickedNode] = useState(null);
+  const [ctrlKey, setCtrlKey] = useState(false);
 
   useEffect(() => {
     if (data) {
@@ -71,18 +72,46 @@ const TreeView = ({ data, selectedNode, setSelectedNode }) => {
     }
   }, [data, selectedNode]);
 
-  const handleClick = (params) => {
+  const handleClick = (params, ctrlKey) => {
     const { data } = params;
     if (data.name) {
       const nodeName = data.name;
-      const updatedSelectedNode = selectedNode.includes(nodeName)
-        ? selectedNode.filter((name) => name !== nodeName)
-        : [...selectedNode, nodeName];
+      let updatedSelectedNode;
+
+      if (ctrlKey) {
+        updatedSelectedNode = selectedNode.includes(nodeName)
+          ? selectedNode.filter((name) => name !== nodeName)
+          : [...selectedNode, nodeName];
+      } else {
+        updatedSelectedNode = [nodeName]; // Replace the current name with the new node clicked
+      }
+
       setClickedNode(nodeName);
       setSelectedNode(updatedSelectedNode);
-      console.log(data.name);
     }
   };
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.ctrlKey || event.metaKey) {
+        setCtrlKey(true);
+      }
+    };
+
+    const handleKeyUp = (event) => {
+      if (!event.ctrlKey && !event.metaKey) {
+        setCtrlKey(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('keyup', handleKeyUp);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keyup', handleKeyUp);
+    };
+  }, []);
 
   return (
     <div style={{ textAlign: 'center' }}>
@@ -94,7 +123,11 @@ const TreeView = ({ data, selectedNode, setSelectedNode }) => {
           option={option || {}}
           opts={{ renderer: 'svg' }}
           style={{ width: '100%', height: '500%', margin: '0 auto' }}
-          onEvents={{ click: handleClick }}
+          onEvents={{ 
+            click: (params) => {
+              handleClick(params, ctrlKey);
+            } 
+          }}
         />
       )}
     </div>
