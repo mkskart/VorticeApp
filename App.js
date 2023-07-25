@@ -9,6 +9,7 @@ const App = () => {
   const [data1, setData1] = useState(null);
   const [data2, setData2] = useState(null);
   const [selectedNode, setSelectedNode] = useState([]);
+  const [selectedLine, setSelectedLine] = useState([]);
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
@@ -28,15 +29,14 @@ const App = () => {
   return (
     <div className="app">
       <input type="file" onChange={handleFileUpload} accept="application/json"/>
-      <div style={{ display: 'flex'}}>
+      <div style={{ display: 'flex' }}>
         <div style={{ flex: 1, backgroundColor: 'white' }}>
           <SurfaceChart />
-          <ParallelChart selectedNode = {selectedNode} setSelectedNode = {setSelectedNode} data={data2}/>
+          <ParallelChart selectedLine = {selectedLine} setSelectedLine = {setSelectedLine} selectedNode = {selectedNode} setSelectedNode = {setSelectedNode} data={data2}/>
         </div>
-        <div style={{ flex: 1, backgroundColor: 'white' }}>
-          
+        <div style={{ flex: 1, backgroundColor: 'white' }}>  
           <ClusterScatterplot />
-          <TreeView selectedNode = {selectedNode} setSelectedNode = {setSelectedNode} data={data1}/>
+          <TreeView selectedLine = {selectedLine} setSelectedLine = {setSelectedLine} selectedNode = {selectedNode} setSelectedNode = {setSelectedNode} data={data1}/>
         </div>
       </div>
     </div>

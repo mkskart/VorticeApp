@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReactEcharts from 'echarts-for-react';
 
-const TreeView = ({ data, selectedNode, setSelectedNode }) => {
+const TreeView = ({ data, selectedNode, setSelectedNode, selectedLine, setSelectedLine }) => {
   const [loading, setLoading] = useState(true);
   const [option, setOption] = useState(null);
   const [clickedNode, setClickedNode] = useState(null);

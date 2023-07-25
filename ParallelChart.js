@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import * as echarts from "echarts";
 
-const ParallelChart = ({ data, selectedNode, setSelectedNode }) => {
+const ParallelChart = ({ data, selectedNode, setSelectedNode, selectedLine, setSelectedLine }) => {
   const chartRef = useRef(null);
   const formattedDataArray = [];
 
@@ -36,21 +36,8 @@ const ParallelChart = ({ data, selectedNode, setSelectedNode }) => {
       const splitArrays = [];
       const arrayLength = 19;
       let {color, opacity, width } = getNodeStyling(name);
-
-      // if(selectedNode.length > 0) {
-      //   if(selectedNode.includes(name)) {
-      //     color = "red"
-      //     opacity = 1
-      //     width = 2
-      //   } else {
-      //     color = "gray"
-      //     opacity = 0.25
-      //     width = 0.5
-      //   }
-      // }
       
       for (let i = 0; i < dataArray.length; i += arrayLength) {
-        //splitArrays.push(dataArray.slice(i, i + arrayLength));
         const seriesData = {
           value: dataArray.slice(i, i + arrayLength),
           "lineStyle": {
