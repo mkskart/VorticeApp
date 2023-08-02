@@ -124,6 +124,14 @@ const ParallelChart = ({ data, selectedNode, setSelectedNode, selectedLine, setS
       });
     });
 
+    if (selectedLine !== null) {
+      formattedDataArray[selectedLine].lineStyle = {
+        ...formattedDataArray[selectedLine].lineStyle,
+        color: 'red',
+        opacity: 1,
+        width: 2
+      };
+    }
 
     return () => {
       chart.dispose();

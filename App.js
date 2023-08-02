@@ -9,6 +9,7 @@ const App = () => {
   const [data1, setData1] = useState(null);
   const [data2, setData2] = useState(null);
   const [selectedNode, setSelectedNode] = useState([]);
+  const [selectedLine, setSelectedLine] = useState(null);
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
@@ -33,6 +34,8 @@ const App = () => {
           <ParallelChart
             selectedNode={selectedNode}
             setSelectedNode={setSelectedNode}
+            selectedLine={selectedLine}
+            setSelectedLine={setSelectedLine}
             data={data2}
           />
         </div>
@@ -41,6 +44,7 @@ const App = () => {
           <TreeView
             selectedNode={selectedNode}
             setSelectedNode={setSelectedNode}
+            setSelectedLine={setSelectedLine}
             data={data1}
           />
         </div>
