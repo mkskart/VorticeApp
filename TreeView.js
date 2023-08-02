@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import ReactEcharts from 'echarts-for-react';
 
-const TreeView = ({ data, selectedNode, setSelectedNode, selectedLine, setSelectedLine }) => {
+const TreeView = ({ data, selectedNode, setSelectedNode }) => {
   const [loading, setLoading] = useState(true);
   const [option, setOption] = useState(null);
-  const [clickedNode, setClickedNode] = useState(null);
   const [ctrlKey, setCtrlKey] = useState(false);
 
   useEffect(() => {
@@ -61,8 +60,8 @@ const TreeView = ({ data, selectedNode, setSelectedNode, selectedLine, setSelect
               focus: 'descendant'
             },
             expandAndCollapse: false,
-            animationDuration: 550,
-            animationDurationUpdate: 750
+            animationDuration: 0,
+            animationDurationUpdate: 0
           },
         ],
       };
@@ -75,18 +74,17 @@ const TreeView = ({ data, selectedNode, setSelectedNode, selectedLine, setSelect
   const handleClick = (params, ctrlKey) => {
     const { data } = params;
     if (data.name) {
-      const nodeName = data.name;
+      const clickedNodeName = data.name;
       let updatedSelectedNode;
 
       if (ctrlKey) {
-        updatedSelectedNode = selectedNode.includes(nodeName)
-          ? selectedNode.filter((name) => name !== nodeName)
-          : [...selectedNode, nodeName];
+        updatedSelectedNode = selectedNode.includes(clickedNodeName)
+          ? selectedNode.filter((name) => name !== clickedNodeName)
+          : [...selectedNode, clickedNodeName];
       } else {
-        updatedSelectedNode = [nodeName]; // Replace the current name with the new node clicked
+        updatedSelectedNode = [clickedNodeName]; // Replace the current name with the new node clicked
       }
 
-      setClickedNode(nodeName);
       setSelectedNode(updatedSelectedNode);
     }
   };
@@ -132,6 +130,7 @@ const TreeView = ({ data, selectedNode, setSelectedNode, selectedLine, setSelect
       )}
     </div>
   );
+
 };
 
 export default TreeView;

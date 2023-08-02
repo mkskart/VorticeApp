@@ -86,11 +86,45 @@ const ParallelChart = ({ data, selectedNode, setSelectedNode, selectedLine, setS
         lineStyle: {
           width: 1,
         },
-        data: formattedDataArray
+        data: formattedDataArray,
+        animation :false
       },
     };
 
     chart.setOption(option);
+
+    chart.on('click', function (params) {
+      // params.dataIndex contains the index of the clicked line in the data array
+      const clickedLineIndex = params.dataIndex;
+
+      // Change the color of the clicked line to red
+      formattedDataArray[clickedLineIndex].lineStyle = {
+        ...formattedDataArray[clickedLineIndex].lineStyle,
+        color: 'red',
+        opacity: 1,
+        width: 2
+      };
+
+      for (let i = 0; i < formattedDataArray.length; i++) {
+        if (i !== clickedLineIndex) {
+          formattedDataArray[i].lineStyle = {
+            ...formattedDataArray[i].lineStyle,
+            color: 'gray',
+            opacity: 0.25,
+            width: 0.5
+          };
+        }
+      }
+
+      // Refresh the chart
+      chart.setOption({
+        series: {
+          data: formattedDataArray
+        }
+      });
+    });
+
+
     return () => {
       chart.dispose();
     };
