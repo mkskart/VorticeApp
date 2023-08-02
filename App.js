@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import TreeView from './components/TreeView';
 import ParallelChart from './components/ParallelChart';
 import ClusterScatterplot from './components/ClusterScatterplot';
-import SurfaceChart from './components/SurfaceChart';
+import ThreeJS from './components/ThreeJS';
 import './App.css';
 
 const App = () => {
@@ -29,7 +29,7 @@ const App = () => {
       <input type="file" onChange={handleFileUpload} accept="application/json" />
       <div style={{ display: 'flex' }}>
         <div style={{ flex: 1, backgroundColor: 'white' }}>
-          <SurfaceChart />
+          <center><ThreeJS width={1000} height={500}/></center>
           <ParallelChart
             selectedNode={selectedNode}
             setSelectedNode={setSelectedNode}
