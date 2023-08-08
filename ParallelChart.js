@@ -96,7 +96,7 @@ const ParallelChart = ({ data, selectedNode, setSelectedNode, selectedLine, setS
     chart.on('click', function (params) {
       // params.dataIndex contains the index of the clicked line in the data array
       const clickedLineIndex = params.dataIndex;
-
+      
       // Change the color of the clicked line to red
       formattedDataArray[clickedLineIndex].lineStyle = {
         ...formattedDataArray[clickedLineIndex].lineStyle,
